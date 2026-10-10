@@ -1,0 +1,2 @@
+UnboundLocalError Örneği ve Açıklaması
+Açıklama: `UnboundLocalError`, bir fonksiyonun içinde global bir değişkene atama yapmaya çalıştığımızda ortaya çıkar. Python, fonksiyon içinde bir değişkene değer atandığını gördüğünde onu yerel bir değişken olarak kabul eder. Eğer `global` kelimesini kullanarak bunun dışarıdaki değişken olduğunu belirtmezsek ve o yerel değişkene değer atamadan onu kullanmaya çalışırsak Python bu hatayı verir.
