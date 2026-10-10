@@ -1,4 +1,5 @@
 import json
+from araclar import hamle_sayaci, en_bagli_gezegenler
 
 def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:
     if not (credits or engines or copilot):
@@ -44,7 +45,13 @@ with open("uzay_oyunu/galaksi.json", "r", encoding="utf-8") as dosya:
 
 galaksi = galaksi_kur(**veri)
 
+guncel_sayac = hamle_sayaci()
+
 def travel(planet):
-    destinations = galaksi["baglantilar"][planet] 
     
-    pass
+    yapilan_hamle = guncel_sayac()
+    
+    oyun_bitti_mi = False 
+    
+    if oyun_bitti_mi:
+        print(f"Oyunu {yapilan_hamle} hamlede bitirdin!")
