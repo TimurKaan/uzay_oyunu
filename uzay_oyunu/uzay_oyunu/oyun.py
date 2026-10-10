@@ -1,3 +1,5 @@
+import json
+
 def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:
     if not (credits or engines or copilot):
         return ""
@@ -20,3 +22,29 @@ def hedef_menusu(hedefler: list[str]) -> str:
         satirlar.append(f"[{i}] {hedef}")
         
     return "\n".join(satirlar)
+
+import json
+
+def galaksi_kur(gezegenler, baglantilar, baslangic, **kwargs):
+
+    if baslangic not in gezegenler:
+        raise ValueError("Başlangıç gezegeni listede yok.")
+    
+    yakit = kwargs.get("yakit", 50)
+    
+    return {
+        "gezegenler": gezegenler,
+        "baglantilar": baglantilar,
+        "konum": baslangic,
+        "yakit": yakit
+    }
+
+with open("uzay_oyunu/galaksi.json", "r", encoding="utf-8") as dosya:
+    veri = json.load(dosya)
+
+galaksi = galaksi_kur(**veri)
+
+def travel(planet):
+    destinations = galaksi["baglantilar"][planet] 
+    
+    pass
