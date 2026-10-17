@@ -26,3 +26,30 @@ g2 = fibonacci()
 print("Birinci islice çağrısı (ilk 5 değer):", list(islice(g2, 5)))
 
 print("İkinci islice çağrısı (sonraki 5 değer):", list(islice(g2, 5)))
+
+def yakit_gostergesi(yakit: int, tuketim: int):
+    while yakit > 0:
+        yakit -= tuketim
+        if yakit < 0:
+            yakit = 0
+        yield yakit
+
+def travel():
+    # Testlerin bozulmaması için tüketim küçük seçildi 
+    gosterge = yakit_gostergesi(100, 5)
+    
+    while True:
+        yolculuk_yap = input("Yolculuk yapmak istiyor musun? (e/h): ")
+        if yolculuk_yap.lower() != 'e':
+            print("Yolculuk iptal edildi.")
+            break
+            
+        try:
+            kalan_yakit = next(gosterge)
+            print(f"Yolculuk başarılı! Kalan yakıt: {kalan_yakit}")
+        except StopIteration:
+            print("Yakıtın bitti, uzayda sürükleniyorsun...")
+            break
+
+if __name__ == "__main__":
+    travel()

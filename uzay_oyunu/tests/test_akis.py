@@ -1,5 +1,5 @@
 from itertools import islice, takewhile
-from uzay_oyunu.akis import fibonacci
+from uzay_oyunu.akis import fibonacci, yakit_gostergesi
 
 def test_fibonacci_ureteci():
     # 1. next() ile ilk üç değeri alma testi
@@ -25,3 +25,18 @@ def test_fibonacci_ureteci():
 
     assert ikinci_liste == [5, 8, 13, 21, 34] 
     assert ilk_liste != ikinci_liste
+
+    # oyun.py dosyasındaki fonksiyonu içe aktardığınızı varsayıyoruz
+# from oyun import yakit_gostergesi
+
+def test_yakit_gostergesi():
+    #örnek test senaryosu
+    sonuc = list(yakit_gostergesi(100, 30))
+    beklenen_cikti = [70, 40, 10, 0]
+    
+    # Sonucun beklenen çıktıya eşit olup olmadığını kontrol eder
+    assert sonuc == beklenen_cikti, f"Test başarısız! Beklenen: {beklenen_cikti}, Alınan: {sonuc}"
+    print("Test başarılı! Fonksiyon doğru çıktıyı üretiyor:", sonuc)
+
+if __name__ == "__main__":
+    test_yakit_gostergesi()

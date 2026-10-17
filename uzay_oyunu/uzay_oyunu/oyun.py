@@ -1,5 +1,6 @@
 import json
-from araclar import hamle_sayaci, en_bagli_gezegenler
+from uzay_oyunu.araclar import hamle_sayaci, en_bagli_gezegenler
+
 
 def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:
     if not (credits or engines or copilot):
