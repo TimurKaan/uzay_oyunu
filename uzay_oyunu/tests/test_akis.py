@@ -40,3 +40,34 @@ def test_yakit_gostergesi():
 
 if __name__ == "__main__":
     test_yakit_gostergesi()
+
+# 1. Üreteç Fonksiyonları
+def satirlari_oku(yol):
+    with open(yol, "r", encoding="utf-8") as dosya:
+        for satir in dosya:
+            temiz_satir = satir.strip()
+            if temiz_satir and not temiz_satir.startswith("#"):
+                yield temiz_satir
+
+def ayristir(satirlar):
+    for satir in satirlar:
+        parcalar = satir.split()
+        kaynak = parcalar[0]
+        hedef = parcalar[2]
+        yakit = int(parcalar[3])
+        yield (kaynak, hedef, yakit)
+
+def uzun_yolculuklar(kayitlar, esik):
+    for kaynak, hedef, yakit in kayitlar:
+        if yakit > esik:
+            yield (kaynak, hedef, yakit)
+
+# 2. Test Kodu
+print("--- Yakıt Toplamı Testi ---")
+toplam_yakit = sum(y for _, _, y in ayristir(satirlari_oku("veri/seyir.txt")))
+print(toplam_yakit)
+
+print("\n--- Uzun Yolculuklar Testi ---")
+kayitlar = ayristir(satirlari_oku("veri/seyir.txt"))
+hedefler = [h for _, h, _ in uzun_yolculuklar(kayitlar, 10)]
+print(hedefler)    
