@@ -89,3 +89,5 @@ if __name__ == "__main__":
     kayitlar = ayristir(satirlari_oku("veri/seyir.txt"))
     hedefler = [h for _, h, _ in uzun_yolculuklar(kayitlar, 10)]
     print(hedefler)  # Beklenen çıktı: ['sirius', 'centauri', 'orion', 'kara_delik']
+
+    
