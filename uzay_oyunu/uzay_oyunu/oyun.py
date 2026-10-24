@@ -1,5 +1,11 @@
 import json
-from uzay_oyunu.araclar import hamle_sayaci, en_bagli_gezegenler, log_cagri
+from uzay_oyunu.araclar import hamle_sayaci, en_bagli_gezegenler, log_cagri, sinirla
+
+
+@sinirla(0, 100)
+def yakit_harca(miktar, depo=100):
+    return depo - miktar
+
 
 
 def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:

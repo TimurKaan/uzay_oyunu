@@ -39,6 +39,62 @@ def log_cagri(fonksiyon):
     return sarmalayici
 
 
+def sinirla(alt, ust):
+    """Dekore edilen fonksiyonun ilk argümanının [alt, ust] aralığında olmasını zorunlu kılan dekoratör."""
+    def dekorator(fonksiyon):
+        @wraps(fonksiyon)
+        def sarmalayici(*args, **kwargs):
+            if args:
+                ilk_arg = args[0]
+            elif kwargs:
+                ilk_arg = next(iter(kwargs.values()))
+            else:
+                ilk_arg = None
+
+            if ilk_arg is not None and not (alt <= ilk_arg <= ust):
+                raise ValueError(f"{fonksiyon.__name__}: {ilk_arg} değeri {alt}-{ust} aralığında değil")
+
+            return fonksiyon(*args, **kwargs)
+
+        return sarmalayici
+
+    return dekorator
+
+
+def hafiza(maxsize=None):
+    """functools.lru_cache kullanmadan, closure içindeki sözlükle çalışan ve maxsize dolunca en eski girdiyi silen dekoratör."""
+    def decorator_generator(max_s):
+        def dekorator(fonksiyon):
+            cache = {}
+
+            @wraps(fonksiyon)
+            def sarmalayici(*args, **kwargs):
+                anahtar = (args, tuple(sorted(kwargs.items())))
+                if anahtar in cache:
+                    deger = cache.pop(anahtar)
+                    cache[anahtar] = deger
+                    return deger
+
+                sonuc = fonksiyon(*args, **kwargs)
+                if max_s is not None and len(cache) >= max_s:
+                    en_eski = next(iter(cache))
+                    del cache[en_eski]
+
+                cache[anahtar] = sonuc
+                return sonuc
+
+            sarmalayici.cache = cache
+            return sarmalayici
+
+        return dekorator
+
+    if callable(maxsize):
+        func = maxsize
+        return decorator_generator(None)(func)
+    return decorator_generator(maxsize)
+
+
+
 
 
 def hamle_sayaci():
