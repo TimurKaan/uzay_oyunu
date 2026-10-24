@@ -1,5 +1,5 @@
 import json
-from uzay_oyunu.araclar import hamle_sayaci, en_bagli_gezegenler
+from uzay_oyunu.araclar import hamle_sayaci, en_bagli_gezegenler, log_cagri
 
 
 def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:
@@ -17,6 +17,7 @@ def envanter_metni(credits: bool, engines: bool, copilot: bool) -> str:
     return f"Sende: {', '.join(esyalar)}"
 
 
+@log_cagri
 def hedef_menusu(hedefler: list[str]) -> str:
 
     satirlar = ["Nereye gitmek istersin?"]
@@ -27,6 +28,7 @@ def hedef_menusu(hedefler: list[str]) -> str:
 
 import json
 
+@log_cagri
 def galaksi_kur(gezegenler, baglantilar, baslangic, **kwargs):
 
     if baslangic not in gezegenler:

@@ -25,6 +25,21 @@ def say(fonksiyon):
     return sarmalayici
 
 
+def log_cagri(fonksiyon):
+    """Her çağrıdan önce fonksiyon adını ve argümanlarını, sonra da dönüş değerini yazdıran dekoratör."""
+    @wraps(fonksiyon)
+    def sarmalayici(*args, **kwargs):
+        konumsal = [repr(a) for a in args]
+        adli = [f"{k}={v!r}" for k, v in kwargs.items()]
+        tum_argumanlar = ", ".join(konumsal + adli)
+        print(f"-> {fonksiyon.__name__}({tum_argumanlar})")
+        sonuc = fonksiyon(*args, **kwargs)
+        print(f"<- {fonksiyon.__name__} = {sonuc!r}")
+        return sonuc
+    return sarmalayici
+
+
+
 
 def hamle_sayaci():
     sayac = 0
