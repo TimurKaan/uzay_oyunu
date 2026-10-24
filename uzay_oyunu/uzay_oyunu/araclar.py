@@ -1,3 +1,19 @@
+import time
+from functools import wraps
+
+
+def sure_olc(fonksiyon):
+    @wraps(fonksiyon)
+    def sarmalayici(*args, **kwargs):
+        baslangic = time.perf_counter()
+        sonuc = fonksiyon(*args, **kwargs)
+        bitis = time.perf_counter()
+        sure = bitis - baslangic
+        print(f"{fonksiyon.__name__}: {sure:.4f} sn")
+        return sonuc
+    return sarmalayici
+
+
 def hamle_sayaci():
     sayac = 0
     

@@ -1,5 +1,5 @@
 import time
-from uzay_oyunu.rota import rota_sayaci
+from uzay_oyunu.rota import rota_sayaci, rota_sayaci_onbelleksiz
 
 galaksi = {
     "baglantilar": {
@@ -45,6 +45,18 @@ def performans_olcumlerini_yap():
 
     print("\nCache Bilgisi:")
     print(say_onbellekli.cache_info())
+    print("\n" + "-" * 40)
+    print("ÖNBELLEKSİZ (sure_olc DEKORATÖRLÜ) ÖLÇÜM (Adım = 20)")
+    print("-" * 40)
+    say_onbelleksiz = rota_sayaci_onbelleksiz(baglantilar)
+    sonuc_onbelleksiz = say_onbelleksiz(baslangic_gezegeni, adim=adim_sayisi)
+    print(f"Hesaplanan rota sayısı: {sonuc_onbelleksiz}")
+
+
+def test_onbelleksiz_rota_sayaci():
+    say_onbelleksiz = rota_sayaci_onbelleksiz(galaksi["baglantilar"])
+    sonuc = say_onbelleksiz("dünya", adim=20)
+    assert sonuc == 768
 
 if __name__ == "__main__":
     test_rota_dogrulama()
