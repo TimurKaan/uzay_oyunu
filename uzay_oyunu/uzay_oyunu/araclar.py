@@ -14,6 +14,18 @@ def sure_olc(fonksiyon):
     return sarmalayici
 
 
+def say(fonksiyon):
+    """Fonksiyonun çağrı sayısını sarmalayici.cagri niteliğinde tutan dekoratör."""
+    @wraps(fonksiyon)
+    def sarmalayici(*args, **kwargs):
+        sarmalayici.cagri += 1
+        return fonksiyon(*args, **kwargs)
+    
+    sarmalayici.cagri = 0
+    return sarmalayici
+
+
+
 def hamle_sayaci():
     sayac = 0
     
